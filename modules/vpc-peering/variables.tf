@@ -7,7 +7,6 @@ variable "vpc_id" {
   description = "ID of the VPC"
   type        = string
 }
-
 variable "peer_vpc_id" {
   description = "ID of the peer VPC"
   type        = string
