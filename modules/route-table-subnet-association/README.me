@@ -1,0 +1,78 @@
+# Terraform AWS Route Table Association Module
+
+Terraform module to associate an AWS subnet with an AWS route table.
+
+## Architecture
+
+```text
+Subnet
+   │
+   │ association
+   ▼
+Route Table
+```
+
+This module only manages the association between an existing subnet and an existing route table.
+
+## Usage
+
+```hcl
+module "route_table_association" {
+  source = "github.com/IndrajitRajasooriar/terraform-modules//modules/route_table_association?ref=main"
+
+  subnet_id      = module.subnet.subnet_id
+  route_table_id = module.route_table.route_table_id
+}
+```
+
+## Inputs
+
+| Name             | Type     | Required | Description                                         |
+| ---------------- | -------- | -------- | --------------------------------------------------- |
+| `subnet_id`      | `string` | Yes      | ID of the subnet to associate with the route table. |
+| `route_table_id` | `string` | Yes      | ID of the route table to associate with the subnet. |
+
+## Outputs
+
+| Name                         | Description                        |
+| ---------------------------- | ---------------------------------- |
+| `route_table_association_id` | ID of the route table association. |
+
+## Resources
+
+This module creates:
+
+* `aws_route_table_association`
+
+## Example
+
+```hcl
+module "route_table_association_1" {
+  source = "github.com/IndrajitRajasooriar/terraform-modules//modules/route_table_association?ref=main"
+
+  subnet_id      = module.subnet_1.subnet_id
+  route_table_id = module.route_table_1.route_table_id
+}
+```
+
+## Notes
+
+This module does not create:
+
+* VPCs
+* Subnets
+* Route tables
+* Routes
+* Internet Gateways
+* NAT Gateways
+
+Those resources should be managed by their respective modules.
+
+The route table itself is responsible for defining routes such as:
+
+```text
+10.1.0.0/16 → VPC Peering Connection
+0.0.0.0/0   → Internet Gateway
+```
+
+The association simply determines which route table is used by the subnet.
