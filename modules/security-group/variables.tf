@@ -47,7 +47,7 @@ variable "egress" {
     ipv6_cidr_blocks = optional(list(string))
     prefix_list_ids  = optional(list(string))
     security_groups  = optional(list(string))
-    self              = optional(bool)
+    self             = optional(bool)
   }))
 
   default = []

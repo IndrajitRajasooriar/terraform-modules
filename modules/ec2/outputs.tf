@@ -10,5 +10,5 @@ output "ec2_instance_arn" {
 
 output "private_ip" {
   description = "Private IP of the instance"
-  value = aws_instance.this.private_ip
+  value       = aws_instance.this.private_ip
 }
