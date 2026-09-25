@@ -3,6 +3,7 @@ resource "aws_instance" "this" {
   instance_type          = var.instance_type
   subnet_id              = var.subnet_id
   vpc_security_group_ids = var.vpc_security_group_ids
+  iam_instance_profile   = aws_iam_instance_profile.this.name
 
   tags = merge(
     {
